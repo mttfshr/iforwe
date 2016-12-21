@@ -1,0 +1,136 @@
+@startuml
+title Concepts
+package user <<Cloud>> {
+class admin
+class artist {
+profile
+imported social graph info
+facebook life event history
+location timeline
+==
+graph connections
+affinity connections
+membership connections
+==
+facebookAuth()
+claimGraph()
+claimAffinity()
+claimMembership()
+verifyGraph()
+verifyAffinity()
+==
+manage graph
+manage affinity
+manage membership
+create alias
+take role of aliasRep
+}
+artist "0..*" - "1..*" alias
+class aliasRep < extends artist? >{
+is a role artist can have
+does not exist wo alias
+==
+//additional functions//
+disputeMembership()
+manageAlias()
+==
+//additional permissions//
+manage alias
+}
+}
+(artist , alias) .. aliasRep
+aliasRep "1..*" - "0..*" alias
+
+package alias <<Cloud>> {
+class alias {
+profile
+CV
+no imported social graph
+no facebook connection
+==
+lineage connections
+membership connections
+affinity connections
+==
+claimMembership()
+claimAffinity()
+claimLineage()
+}
+}
+note bottom
+**graph**
+assertion :  "I know them"
+meta : claimed, verified
+==
+**lineage**
+assertion : "This alias is connected to that alias"
+meta : claimed, verified, disputed
+tree : parent, sibling, child, combinedInto, sameAs,
+==
+**affinity**
+assertion : "My work is similar to theirs"
+meta: claimed, verified
+==
+**membership**
+assertion : "I made work as member of"
+meta : claimed, verified, disputed
+states : current, past
+end note
+@enduml
+
+@startuml
+title Use Cases
+actor User
+actor Artist
+actor AliasRep
+actor Admin
+Admin <|-- User
+Artist <|-- User
+AliasRep <|-- Artist
+rectangle profile {
+  usecase P1 as "Log in and make profile
+  --
+  Acquire facebook social graph
+  Acquire facebook moving history"
+}
+rectangle graph {
+usecase G1 as "Establish graph connections
+==
+  I know this artist"
+}
+rectangle alias {
+usecase A1 as "Create alias"
+usecase A2 as "Take role of Alias Rep"
+usecase A3 as "Manage alias"
+rectangle lineage {
+  usecase L1 as "manage lineage"
+}
+}
+rectangle affinity {
+usecase F1 as "Establish affinity connections
+==
+My work has elements in common with"
+}
+rectangle membership {
+usecase M1 as "Establish memberships
+==
+I made work under this name"
+}
+Artist -> P1
+Artist -> G1
+User -> A1
+Artist -> A1
+Admin -> A1
+Artist -> A2
+AliasRep -> A3
+Admin -> A3
+User -> L1
+Artist -> L1
+Admin -> L1
+AliasRel -> L1
+Artist -> F1
+User -> M1
+Artist -> M1
+Admin -> M1
+AliasRep -> M1
+@enduml
