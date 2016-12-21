@@ -21,5 +21,4 @@ There's nothing to install or run yet. Right now the tool is planned as a web ap
 * **Matt Fisher**
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+TBD
