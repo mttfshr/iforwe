@@ -10,8 +10,8 @@ Still in sketch phase, and is part of a planned 2-part exhibition at Pro Arts Ga
 
 There's nothing to install or run yet. Right now the tool is planned as a web application.
 
-#TODO: Add roadmap id:2
-#TODO: Add gallery info id:3
+// #TODO: Add roadmap id:2 tag +story
+// #TODO: Add gallery info id:3 tag +story
 
 ## Authors
 
