@@ -1,0 +1,26 @@
+{
+  "name": "iforwe",
+  "version": "1.0.0",
+  "description": "A tool for crowdsourcing, conceptualizing and visualizing interconnected artmaking. The tool grabs social graph info from Facebook profiles to establish a family tree of Bay Area artists collectives, cooperatives, groups and aliases.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express": "*",
+    "ejs": "^2.4.2",
+    "morgan":"*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mttfshr/iforwe.git"
+  },
+  "author": "Matt Fisher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mttfshr/iforwe/issues"
+  },
+  "homepage": "https://github.com/mttfshr/iforwe#readme"
+}
