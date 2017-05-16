@@ -4,14 +4,7 @@
 
 A tool for crowdsourcing, conceptualizing and visualizing interconnected artmaking. The tool grabs social graph info from Facebook profiles to establish a family tree of Bay Area artists collectives, cooperatives, groups and aliases.
 
-Still in sketch phase, and is part of a planned 2-part exhibition at Pro Arts Gallery in Oakland, CA in Spring 2017.
-
-## Getting Started
-
-There's nothing to install or run yet. Right now the tool is planned as a web application.
-
-// #TODO: Add roadmap id:2 tag +story
-// #TODO: Add gallery info id:3 tag +story
+Still in sketch phase, and is part of a planned 2-part exhibition at Pro Arts Gallery in Oakland, CA in 2018.
 
 ## Authors
 

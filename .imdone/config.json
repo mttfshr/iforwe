@@ -3,7 +3,7 @@
     "^(node_modules|bower_components|\\.imdone|target|build|dist|logs)[\\/\\\\]?|\\.(git|svn|hg|npmignore)|\\~$|\\.(jpg|png|gif|swp|ttf|otf)$"
   ],
   "watcher": true,
-  "keepEmptyPriority": true,
+  "keepEmptyPriority": false,
   "code": {
     "include_lists": [
       "TODO",
@@ -23,7 +23,7 @@
   "lists": [
     {
       "name": "TODO",
-      "hidden": true
+      "hidden": false
     }
   ],
   "marked": {
@@ -40,8 +40,14 @@
     "useImdoneioForPriority": true
   },
   "meta": {
+    "issue": {
+      "urlTemplate": "https://github.com/imdone/imdone-core/issues/%s",
+      "titleTemplate": "github issue #%s"
+    }
+  },
+  "meta": {
     "gh": {
-      "urlTemplate": "https://github.com/mttfshr/undefined/issues/%s",
+      "urlTemplate": "https://github.com/mttfshr/iforwe/issues/%s",
       "titleTemplate": "View github issue %s",
       "icon": "icon-octoface"
     }
