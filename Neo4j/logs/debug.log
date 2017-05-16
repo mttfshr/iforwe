@@ -3321,3 +3321,7 @@ Caused by: org.neo4j.cypher.internal.frontend.v3_2.InternalException: Expected t
 2017-05-16 21:19:45.885+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 665ms.
 2017-05-16 21:19:47.107+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 382ms.
 2017-05-16 21:19:48.426+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 1119ms.
+2017-05-16 21:19:49.436+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 683ms.
+2017-05-16 21:19:51.487+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 1374ms.
+2017-05-16 21:19:54.888+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 3300ms.
+2017-05-16 21:19:56.934+0000 WARN [o.n.k.i.c.MonitorGc] GC Monitor: Application threads blocked for 1745ms.
