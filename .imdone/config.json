@@ -17,12 +17,33 @@
       "XXX",
       "IDEA",
       "NOTE",
-      "REVIEW"
+      "REVIEW",
+      "11"
     ]
   },
   "lists": [
     {
       "name": "TODO",
+      "hidden": false
+    },
+    {
+      "name": "XXX",
+      "hidden": false
+    },
+    {
+      "name": "FIXME",
+      "hidden": false
+    },
+    {
+      "name": "HACK",
+      "hidden": false
+    },
+    {
+      "name": "NOTE",
+      "hidden": false
+    },
+    {
+      "name": "11",
       "hidden": false
     }
   ],
@@ -38,12 +59,6 @@
     "id": "586722d23739d76d60a39e25",
     "name": "iforwe",
     "useImdoneioForPriority": true
-  },
-  "meta": {
-    "issue": {
-      "urlTemplate": "https://github.com/imdone/imdone-core/issues/%s",
-      "titleTemplate": "github issue #%s"
-    }
   },
   "meta": {
     "gh": {
