@@ -17,12 +17,17 @@
       "XXX",
       "IDEA",
       "NOTE",
-      "REVIEW"
+      "REVIEW",
+      "UNSORTED"
     ]
   },
   "lists": [
     {
       "name": "TODO",
+      "hidden": false
+    },
+    {
+      "name": "UNSORTED",
       "hidden": false
     }
   ],
@@ -38,12 +43,6 @@
     "id": "586722d23739d76d60a39e25",
     "name": "iforwe",
     "useImdoneioForPriority": true
-  },
-  "meta": {
-    "issue": {
-      "urlTemplate": "https://github.com/imdone/imdone-core/issues/%s",
-      "titleTemplate": "github issue #%s"
-    }
   },
   "meta": {
     "gh": {
