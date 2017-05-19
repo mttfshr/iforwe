@@ -18,16 +18,11 @@
       "IDEA",
       "NOTE",
       "REVIEW",
-      "11"
     ]
   },
   "lists": [
     {
       "name": "TODO",
-      "hidden": false
-    },
-    {
-      "name": "XXX",
       "hidden": false
     },
     {
@@ -42,10 +37,6 @@
       "name": "NOTE",
       "hidden": false
     },
-    {
-      "name": "11",
-      "hidden": false
-    }
   ],
   "marked": {
     "gfm": true,
