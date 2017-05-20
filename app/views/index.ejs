@@ -1,85 +1,27 @@
-<% include ../views/partials/header %>
+<% include partials/header %>
 
+<section class="hero is-medium is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        <span class="fa fa-lock"></span> Node Authentication
+      </h1>
+      <h2 class="subtitle">
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+        <% } %>
+          <h3>Login or Register with</h3>
+                <div class="button"><a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a></div>
 
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#addPerson" aria-expanded="false" aria-controls="#addPerson">
-  Add New Person
-</a>
-
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#addLocation" aria-expanded="false" aria-controls="#addLocation">
-  Add New Location
-</a>
-
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#connectFriends" aria-expanded="false" aria-controls="#connectFriends">
-  Connect Friends
-</a>
-
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#addBirthplace" aria-expanded="false" aria-controls="#addBirthplace">
-  Add New Person
-</a>
-
-<div class="collapse" id="addPerson">
-  <div class="well">
-    <h5>Add New Person</h5>
-  <form method="POST" action="/person/add">
-    <input type="text" name="name" placeholder="Name">
-    <input type="submit" value="Submit" class="btn btn-default btn-sm">
-  </form>
+                <div class="button"><a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a></div>
+                <div class="button"><a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a></div>
+      </h2>
+    </div>
   </div>
-</div>
+</section>
 
 
-<div class="collapse" id="addLocation">
-  <div class="well">
-    <h5>Add New Location</h5>
-  <form method="POST" action="/location/add">
-    <input type="text" name="city" placeholder="City">
-    <input type="text" name="state" placeholder="State">
-    <input type="submit" value="Submit" class="btn btn-default btn-sm">
-  </form>
-  </div>
-</div>
-
-<div class="collapse" id="connectFriends">
-  <div class="well">
-    <h5>Connect Friends</h5>
-  <form method="POST" action="/friends/connect">
-    <input type="text" name="name1" placeholder="Name">
-    <input type="text" name="name2" placeholder="Name2">
-    <input type="submit" value="Submit" class="btn btn-default btn-sm">
-  </form>
-  </div>
-</div>
 
 
-<div class="collapse" id="addBirthplace">
-  <div class="well">
-    <h5>Add Birthplace</h5>
-  <form method="POST" action="/person/born/add">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="city" placeholder="City">
-    <input type="text" name="state" placeholder="State">
-    <input type="text" name="year" placeholder="Year">
-    <input type="submit" value="Submit"class="btn btn-default btn-sm">
-  </form>
-  </div>
-</div>
 
-<h3>People</h3>
-<div class="row">
-<% persons.forEach(function(person){ %>
-  <div class="col-md-2">
-    <div class="well"><i class="fa fa-user"></i> <a href="/person/<%= person.id %>"><%= person.name %></a></div>
-  </div>
-<% }) %>
-</div>
-
-<h3>Locations</h3>
-<div class="row">
-<% locations.forEach(function(location){ %>
-  <div class="col-md-2">
-    <div class="well"><i class="fa fa-map-marker"></i> <%= location.name %>, <%= location.state %></div>
-  </div>
-<% }) %>
-</div>
-
-<% include ../views/partials/footer %>
+<% include partials/footer %>
