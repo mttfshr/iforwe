@@ -8,6 +8,13 @@ var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var routes = require('./routes');
+var neo4j = require('neo4j-driver').v1;
+
+
+var neo4j = require('neo4j-driver').v1;
+
+var driver = neo4j.driver("bolt://hobby-jchojlaijildgbkedoidgipl.dbs.graphenedb.com:24786", neo4j.auth.basic("sandbox", "b.bMWCbGNi43IB.87pxK609JEwiRW54"));
+
 
 require('./config/passport')(passport); // pass passport for configuration
 

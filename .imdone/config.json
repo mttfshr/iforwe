@@ -18,6 +18,7 @@
       "IDEA",
       "NOTE",
       "REVIEW",
+      "BACKLOG"
     ]
   },
   "lists": [
@@ -26,17 +27,9 @@
       "hidden": false
     },
     {
-      "name": "FIXME",
+      "name": "BACKLOG",
       "hidden": false
-    },
-    {
-      "name": "HACK",
-      "hidden": false
-    },
-    {
-      "name": "NOTE",
-      "hidden": false
-    },
+    }
   ],
   "marked": {
     "gfm": true,
