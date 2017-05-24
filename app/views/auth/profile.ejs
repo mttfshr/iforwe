@@ -13,7 +13,12 @@
       <form action="/user/update" method="post">
       <h1 class="title">Edit this user</h1>
       <h2 class="subtitle">
-        <input type="text" name="username" placeholder="<%= user.properties.username %>" required />
+        Username <input type="text" name="username" label="username" placeholder="<%= user.properties.username %>" required />
+        Full Name <input type="text" name="name" placeholder="<%= user.properties.name %>" required />
+        Gender <input type="text" name="gender" placeholder="<%= user.properties.gender %>" required />
+        Location <input type="text" name="location" placeholder="<%= user.properties.location %>" required />
+        <input type="submit" value="Update"/>
+        Birthday <input type="text" name="birthday" placeholder="<%= user.properties.birthday %>" required />
         <input type="submit" value="Update"/>
       </h2>
       </form>
@@ -72,27 +77,5 @@
               </div>
             </div>
         </div>
-        <!-- TWITTER INFORMATION -->
-        <!-- <div class="card column">
-          <header class="card-header">
-               <h3 class="card-header-title"><span class="fa fa-twitter card-header-icon"></span> Twitter</h3>
-             </header>
-               <div class="card-content">
-                 <div class="content" style="word-break: break-all;">
-                <% if (user.properties.twitterToken) { %>
-                    <p>
-                        <strong>id</strong>: <%= user.properties.twitterId %><br>
-                        <strong>token</strong>: <%= user.properties.twitterToken %><br>
-                        <strong>display name</strong>: <%= user.properties.twitterDisplayName %><br>
-                        <strong>username</strong>: <%= user.properties.twitterUsername %>
-                    </p>
-
-                    <a href="/unlink/twitter" class="button">Unlink</a>
-                <% } else { %>
-                    <a href="/auth/twitter" class="button">Connect Twitter</a>
-                <% } %>
-              </div>
-              </div>
-              </div> -->
 </div>
 <% include ../partials/footer %>

@@ -1,164 +1,38 @@
-var User      = require('../models/user');
+var User      	= require('../models/user');
+// var Graphnode		= require('../models/graphnode');
+var neo4jdriver = require('neo4j-driver').v1;
+var about = require('./about.js');
+
+var driver = neo4jdriver.driver("bolt://hobby-jchojlaijildgbkedoidgipl.dbs.graphenedb.com:24786", neo4jdriver.auth.basic("sandbox", "b.bMWCbGNi43IB.87pxK609JEwiRW54"));
+var session = driver.session();
 
 module.exports = function(app, passport) {
 
-// // Home route
-// app.get('/',function(req, res){
-//     session
-//       .run("MATCH (n:Person) RETURN n")
-//       .then(function(result){
-//         var personArr = [];
-//
-//         result.records.forEach(function(record){
-//           //console.log(record._fields[0]);
-//           personArr.push({
-//             id: record._fields[0].identity.low,
-//             name: record._fields[0].properties.name
-//           });
-//         });
-//
-//         session
-//           .run("MATCH (n:Location) RETURN n")
-//           .then(function(result2){
-//             var locationArr = [];
-//             result2.records.forEach(function(record){
-//               locationArr.push(record._fields[0].properties);
-//             });
-//
-//             res.render('index', {
-//               persons: personArr,
-//               locations: locationArr
-//             });
-//           })
-//       })
-//       .catch(function(error){
-//         console.log(error);
-//       });
-// });
-//
-// //Add Person route
-//  app.post('/person/add', function(req, res){
-//    var name = req.body.name;
-//    console.log(name);
-//
-//   session
-//     .run("CREATE(n:Person {name:{nameParam}}) RETURN n.name", {nameParam: name})
-//     .then(function(result){
-//       res.redirect('/');
-//       session.close();
-//     })
-//     .catch(function(error){
-//       console.log(error);
-//     });
-// })
+app.get('/about', about.about); // / refers to the default route.
+	app.get('/about/:id', about.find);
+	app.post('/save', about.save);
 
-// //Add Location route
-// app.post('/location/add', function(req, res){
-//   var city = req.body.city;
-//   var state = req.body.state;
-//
-//   session
-//     .run("CREATE(n:Location {name:{cityParam}, state:{stateParam}}) RETURN n", {cityParam: city, stateParam: state})
-//     .then(function(result){
-//       res.redirect('/');
-//       session.close();
-//     })
-//     .catch(function(error){
-//       console.log(error);
-//     });
-// })
-//
-// //Friends connect route
-// app.post('/friends/connect', function(req, res){
-//   var name1 = req.body.name1;
-//   var name2 = req.body.name2;
-//   var id = req.body.id;
-//
-//   session
-//     .run("MATCH(a:Person {name:{nameParam1}}), (b:Person{name:{nameParam2}}) MERGE(a)-[r:FRIENDS]->(b) RETURN a,b", {nameParam1: name1, nameParam2: name2})
-//     .then(function(result){
-//       if(id && id != null){
-//         res.redirect('/person/'+id);
-//       } else {
-//       res.redirect('/');
-//     }
-//       session.close();
-//     })
-//     .catch(function(error){
-//       console.log(error);
-//     });
-// });
-//
-// //Add birthplace route
-// app.post('/person/born/add', function(req, res){
-//   var name = req.body.name;
-//   var city = req.body.city;
-//   var state = req.body.state;
-//   var year = req.body.year;
-//   var id = req.body.id;
-//
-//   session
-//     .run("MATCH(a:Person {name:{nameParam}}), (b:Location{name:{cityParam}, state:{stateParam}}) MERGE(a)-[r:BORN_IN {year:{yearParam}}]->(b) RETURN a,b", {nameParam:name, cityParam:city, stateParam:state, yearParam:year})
-//     .then(function(result){
-//       if(id && id != null){
-//         res.redirect('/person/'+id);
-//       } else {
-//       res.redirect('/');
-//     }
-//       session.close();
-//     })
-//     .catch(function(error){
-//       console.log(error);
-//     });
-// });
-//
-// // Person route
-// app.get('/person/:id', function(req, res){
-//   var id = req.params.id;
-//
-//   session
-//     .run("MATCH (a:Person) WHERE id(a)=toInt({idParam}) RETURN a.name as name", {idParam:id})
-//     .then(function(result){
-//       var name = result.records[0].get("name");
-//
-//       session
-//         .run("OPTIONAL MATCH (a:Person)-[r:BORN_IN]-(b:Location) WHERE id(a)=toInt({idParam}) RETURN b.name as city, b.state as state", {idParam:id})
-//         .then(function(result2){
-//           var city = result2.records[0].get("city");
-//           var state = result2.records[0].get("state");
-//
-//           session
-//               .run("OPTIONAL MATCH (a:Person)-[r:FRIENDS]-(b:Person) WHERE id(a)=toInt({idParam}) RETURN b", {idParam:id})
-//               .then(function(result3){
-//                   var friendsArr = [];
-//
-//                   result3.records.forEach(function(record){
-//                       if(record._fields[0] != null){
-//                           friendsArr.push({
-//                               id: record._fields[0].identity.low,
-//                               name: record._fields[0].properties.name
-//                           });
-//                       }
-//                   });
-//
-//                   res.render('person',{
-//                       id:id,
-//                       name:name,
-//                       city:city,
-//                       state: state,
-//                       friends:friendsArr
-//                   });
-//
-//                   session.close();
-//               })
-//               .catch(function(error){
-//                   console.log(error);
-//               });
-//         });
-//     });
-// });
+	// show all nodes
+	app.get('/graphnodes', function(req, res) {
+		session
+		  .run("MATCH (n) RETURN n.name")
+		  .then(function (result) {
+				var nodeArr = [];
 
-// normal routes ===============================================================
+		    result.records.forEach(function (record) {
+		      // console.log(record);
+					nodeArr.push({
+						node: record
+					});
+				});
+				res.render('pages/graphnodes.ejs', {
+					graphnodes: nodeArr
+				});
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+	});
 
 	// show the home page (will also have our login links)
 	app.get('/', function(req, res) {
@@ -197,9 +71,6 @@ module.exports = function(app, passport) {
 		});
 	});
 
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
 
 	// locally --------------------------------
 		// LOGIN ===============================
@@ -236,19 +107,6 @@ module.exports = function(app, passport) {
 		// handle the callback after facebook has authenticated the user
 		app.get('/auth/facebook/callback',
 			passport.authenticate('facebook', {
-				successRedirect : '/profile',
-				failureRedirect : '/',
-				failureFlash : true // allow flash messages
-			}));
-
-	// twitter --------------------------------
-
-		// send to twitter to do the authentication
-		app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
-
-		// handle the callback after twitter has authenticated the user
-		app.get('/auth/twitter/callback',
-			passport.authenticate('twitter', {
 				successRedirect : '/profile',
 				failureRedirect : '/',
 				failureFlash : true // allow flash messages
@@ -301,26 +159,11 @@ module.exports = function(app, passport) {
 			res.redirect('/profile');
 		});
 	});
-
-	// twitter --------------------------------
-	app.get('/unlink/twitter', function(req, res) {
-		var updateUser = {};
-			updateUser.id = req.user._id;
-			updateUser.props = {};
-				updateUser.props.twitterToken          = undefined;
-		User.update(updateUser, function(err, user) {
-			if (err)
-				throw err;
-			res.redirect('/profile');
-		});
-	});
-
-};
-
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 
 	res.redirect('/');
+}
 }

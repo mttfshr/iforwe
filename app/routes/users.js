@@ -2,6 +2,7 @@
 // Routes to CRUD users.
 
 var User = require('../models/user');
+var Graphnode		= require('../models/graphnode');
 
 module.exports = function(app, passport) {
 
@@ -14,7 +15,7 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get('/user/:username', function (req, res) {
+	app.get('/user/:username', function (req, res, next) {
 		User.getBy('user.username', req.params.username, function (err, user) {
 			if (err) return next(err);
 			User.getUserRelationships(user._id, function (err, relationships) {

@@ -1,12 +1,16 @@
 // user.js
 // User model logic.
-
 var neo4j = require('neo4j');
+var neo4jdriver = require('neo4j-driver').v1;
+
 var db = new neo4j.GraphDatabase(
 	process.env['NEO4J_URL'] ||
 	process.env['GRAPHENEDB_URL'] ||
-	'http://localhost:7474'
+	'http://sandbox:b.bMWCbGNi43IB.87pxK609JEwiRW54@hobby-jchojlaijildgbkedoidgipl.dbs.graphenedb.com:24789/db/data/'
 );
+
+var driver = neo4jdriver.driver("bolt://hobby-jchojlaijildgbkedoidgipl.dbs.graphenedb.com:24786", neo4jdriver.auth.basic("sandbox", "b.bMWCbGNi43IB.87pxK609JEwiRW54"));
+
 var bcrypt   = require('bcrypt-nodejs');
 
 // private constructor:
@@ -73,6 +77,7 @@ User.getBy = function (field, value, callback) {
 	});
 }
 
+
 User.addUserRelationship = function(relation, userId, otherId, callback) {
 	switch (relation) {
 		case 'follow':
@@ -117,7 +122,7 @@ User.getUserRelationships = function(id, callback) {
 	var qp = {
 		query: [
 			'START n=node({userId})',
-			'MATCH n-[r]-(m)',
+			'MATCH (n)-[r]-(m)',
 			'RETURN n,r,m'
 		].join('\n'),
 		params: {

@@ -142,6 +142,7 @@ module.exports = function(passport) {
 									update.props.facebookToken = token;
 									update.props.facebookName  = profile.name.givenName + ' ' + profile.name.familyName;
 									update.props.facebookEmail = profile.emails[0].value;
+									// update.props.birthday = profile.birthday;
 							User.update(update, function(err, user) {
 								if (err)
 									throw err;
@@ -157,6 +158,7 @@ module.exports = function(passport) {
 							newUser.facebookToken = token;
 							newUser.facebookName  = profile.name.givenName + ' ' + profile.name.familyName;
 							newUser.facebookEmail = profile.emails[0].value;
+							// newUser.birthday = profile.birthday;
 
 						User.create(newUser, function (err, user) {
 							if (err)
@@ -182,13 +184,14 @@ module.exports = function(passport) {
 								updateUser.props.facebookToken = token;
 								updateUser.props.facebookName  = profile.name.givenName + ' ' + profile.name.familyName;
 								updateUser.props.facebookEmail = profile.emails[0].value;
+								// updateUser.props.birthday = profile.birthday;
 
 						User.update(updateUser, function(err, user) {
 							if (err)
 								throw err;
 							return done(null, user);
 						});
-					}
+					}x
 				});
 			}
 		});

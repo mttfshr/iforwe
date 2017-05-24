@@ -1,27 +1,20 @@
 <% include partials/header %>
 
-<section class="hero is-medium is-primary">
-  <div class="hero-body">
-    <div class="container">
+<section class="hero is-medium is-dark">
+  <div class="hero-body container" style="padding-left: 20px;">
       <h1 class="title">
         <span class="fa fa-lock"></span> Node Authentication
       </h1>
       <h2 class="subtitle">
-        <% if (message.length > 0) { %>
-            <div class="alert alert-danger"><%= message %></div>
-        <% } %>
+
           <h3>Login or Register with</h3>
                 <div class="button"><a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a></div>
 
                 <div class="button"><a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a></div>
                 <div class="button"><a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a></div>
       </h2>
-    </div>
   </div>
 </section>
-
-
-
 
 
 <% include partials/footer %>
