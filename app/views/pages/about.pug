@@ -1,0 +1,47 @@
+div.container
+  h2 #{title}
+  div.columns
+      div.column
+        h2 #{title}
+        h3 #{message}
+        a.button.is-primary(href='/about/0' )
+          span.glyphicon.glyphicon-plus
+        table.table.table-hover.table-condensed
+          thead
+            tr
+              th Name
+              th Username
+              th
+          tbody
+            each person, i in people
+              tr
+                td #{person.name}
+                td #{person.username}
+                td
+                   a(href='/about/' + person.UniqueId )
+                      span.glyphicon.glyphicon-edit
+if (people.length > 0)
+  h3 Artist - #{people[0].name}
+else
+  h3 Add New Artist
+form(action="/save", method="post")
+  each field, i in fields
+      div.form-group.row
+          label.col-xs-2.col-form-label #{field}:
+          div.col-xs-10
+              if (people.length > 0)
+                  input.form-control(type="text", name="#{field}_value", size=50, value=people[0][field])
+              else
+                  input.form-control(type="text", name="#{field}_value", size=50, value="")
+  h3 Add Property:
+  div.form-group.row
+      label.col-xs-2.col-form-label Property Name
+      div.col-xs-10
+          input.form-control(type="text", name="new_label")
+  div.form-group.row
+      label.col-xs-2.col-form-labellabel Property Value
+      div.col-xs-10
+          input.form-control(type="text", name="new_value")
+  input.btn.btn-primary.pull-right(type="submit", value="Submit")
+  a.btn.btn-default(href='/about' ) Cancel
+  br

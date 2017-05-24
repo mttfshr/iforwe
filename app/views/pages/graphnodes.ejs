@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+
+<div class="container">
+	<h1>Nodes</h1>
+	<% if(graphnodes.length > 0) { %>
+		<p>Here are the current nodes and labels:</p>
+		<ul>
+		<% graphnodes.forEach(function(graphnode) { %>
+			<li>Name: <%- JSON.stringify(graphnode) %></li>
+		<% }); %>
+		</ul>
+	<% } else { %>
+		There are no nodes
+	<% } %>
+</div>
+
+<% include ../partials/footer %>
