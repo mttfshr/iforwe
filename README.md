@@ -49,12 +49,12 @@ Immediate roadmap:
 
 I'm creating this tool as part of the Gray Area Cultural Incubator program, run by the Gray Area Foundation in San Francisco and with the help of program mentors Chelley Sherman, Ray McClure and Mark Hellar. This project is made possible with support from Pro Arts Gallery in Oakland, CA.
 
-Pro Arts Gallery https://proartsgallery.org/
-Gray Area Cultural Incubator http://grayarea.org/incubator/overview/
-Gray Area Foundation http://www.grayarea.org
-Chelley Sherman, incubator mentor @chellingly
-Ray McClure, incubator mentor @RayReadyRay
-Mark Hellar, incubator mentor @mhellar
+- Pro Arts Gallery https://proartsgallery.org/
+- Gray Area Cultural Incubator http://grayarea.org/incubator/overview/
+- Gray Area Foundation http://www.grayarea.org
+- Chelley Sherman, incubator mentor @chellingly
+- Ray McClure, incubator mentor @RayReadyRay
+- Mark Hellar, incubator mentor @mhellar
 
 ## License
 
