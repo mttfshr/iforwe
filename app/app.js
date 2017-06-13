@@ -1,48 +1,105 @@
-var express = require('express');
-var app = express();
-var path = require('path');
-var port = process.env.PORT || 3000;
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var passport = require('passport');
-var flash = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var routes = require('./routes');
-var neo4jdriver = require('neo4j-driver').v1;
-var neo4j = require('neo4j');
-var apoc = require('apoc');
-var helmet = require('helmet');
+var express = require('express')
+var path = require('path')
+var favicon = require('serve-favicon')
+var logger = require('morgan')
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var session = require('express-session')
+var dotenv = require('dotenv')
+var passport = require('passport')
+var Auth0Strategy = require('passport-auth0')
 
-var about = require('./routes/about.js');
+dotenv.load()
 
+var routes = require('./routes/index')
+var user = require('./routes/user')
+// var graph = require('./routes/graph')
+// var node = require('./routes/node')
+// var nodes = require('./routes/nodes')
 
+// This will configure Passport to use Auth0
+var strategy = new Auth0Strategy({
+  domain: process.env.AUTH0_DOMAIN,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+}, function (accessToken, refreshToken, extraParams, profile, done) {
+    // accessToken is the token to call Auth0 API (not needed in the most cases)
+    // extraParams.id_token has the JSON Web Token
+    // profile has all the information from the user
+  return done(null, {
+    profile: profile,
+    extraParams: extraParams
+  })
+})
 
-var driver = neo4jdriver.driver("bolt://hobby-jchojlaijildgbkedoidgipl.dbs.graphenedb.com:24786", neo4jdriver.auth.basic("sandbox", "b.bMWCbGNi43IB.87pxK609JEwiRW54"));
+passport.use(strategy)
 
-require('./config/passport')(passport); // pass passport for configuration
+// you can use this section to keep a smaller payload
+passport.serializeUser(function (user, done) {
+  done(null, user)
+})
 
-app.use(helmet());
-app.use(morgan('dev'));
-app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.json()); // get information from html forms
-app.use(bodyParser.urlencoded({ extended: false }));
+passport.deserializeUser(function (user, done) {
+  done(null, user)
+})
 
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+var app = express()
 
-app.engine('ejs', require('ejs').renderFile);
-app.engine('pug', require('pug').__express);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
 
-// required for passport
-app.use(session({ secret: 'yoursecret' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+// uncomment after placing your favicon in /public
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(session({
+  secret: 'shhhhhhhhh',
+  resave: true,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(express.static(path.join(__dirname, 'public')))
 
-require('./routes/routes.js')(app, passport);
-require('./routes/users.js')(app, passport);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes)
+app.use('/user', user)
+// app.use('/graph', graph)
+// app.use('/node', node)
+// app.use('/nodes', nodes)
 
-app.listen(port);
-console.log('The magic happens on port ' + port);
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500)
+    res.render('error', {
+      message: err.message,
+      error: err
+    })
+  })
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500)
+  res.render('error', {
+    message: err.message,
+    error: {}
+  })
+})
+
+module.exports = app

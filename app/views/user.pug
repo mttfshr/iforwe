@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  - var imgsrc = user.picture
+  - var entries = Object.entries(user)
+  - var props = Object.entries(user.profile)
+  - var email = user.profile.emails[0].value
+  
+  .card
+    .card-header
+      .card-header-title
+          h2 Welcome #{user.profile.nickname}!
+    .card-content
+      .media
+        .media-left
+          figure.image.is-48x48
+            img(src=user.profile.picture)
+        .media-content
+          h3 #{user.profile.name.givenName} #{user.profile.name.familyName}
+          h3 #{email}
+          h3 #{user.profile.id}
+    .card-footer
+      a(href='/logout').card-footer-item Logout
+      button(onclick="signin()").card-footer-item  Link Account
+
+  script.
+    var lock = new Auth0Lock(
+      '#{env.AUTH0_CLIENT_ID}',
+      '#{env.AUTH0_DOMAIN}', {
+        auth: {
+          redirectUrl: 'http://localhost:3000/link',
+          responseType: 'token',
+        }
+      }
+    );
+
+    function signin() {
+      lock.show();
+    }

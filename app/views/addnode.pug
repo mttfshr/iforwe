@@ -1,0 +1,40 @@
+block content
+form.level(action="/artist/add", method="post")
+    .field.is-horizontal
+      .field-label.is-medium
+        label.label Artist
+      .field-body
+        .field.is-grouped
+          p.control
+            input.input(type="text", name="name", size=50, placeholder="Full name")
+          input.button.is-primary(type="submit", value="Submit")
+        
+form.level(action="/group/add", method="post")
+  .field.is-horizontal
+    .field-label.is-medium
+      label.label Group
+    .field-body
+      .field.is-grouped
+        p.control
+          input.input(type="text", name="name", size=50, placeholder="Group name")
+        input.button.is-primary(type="submit", value="Submit")
+
+form.level(action="/project/add", method="post")
+  .field.is-horizontal
+    .field-label.is-medium
+      label.label Project
+    .field-body
+      .field.is-grouped
+        p.control
+          input.input(type="text", name="name", size=50, placeholder="Project name")
+        input.button.is-primary(type="submit", value="Submit")
+
+form.level(action="/venue/add", method="post")
+  .field.is-horizontal
+    .field-label.is-medium
+      label.label Venue
+    .field-body
+      .field.is-grouped
+        p.control
+          input.input(type="text", name="name", size=50, placeholder="Venue name")
+        input.button.is-primary(type="submit", value="Submit")

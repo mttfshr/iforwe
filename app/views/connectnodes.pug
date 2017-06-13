@@ -1,0 +1,25 @@
+block content
+  h3 Doesn't function yet
+  form.is-horizontal(action="/save", method="post")
+    .field.has-addons.is-grouped
+      p.control
+        input.input(type="text" placeholder="ID for first node" length=100)
+    .field.has-addons.is-grouped
+      p.control
+        select.input(type="select" placeholder="select relationship")
+          option :MEMBER_OF
+          option :FOUNDER_OF
+          option :WORKSPACE_AT
+          option :ALIAS_FOR
+          option :MANAGED
+          option :PRODUCED
+          option :PRESENTED_AT
+          option :PRESENTED_YEAR
+          option :PRODUCED_BY
+          option :PRODUCED_AT
+          option :LOCATED_IN
+    .field.has-addons.is-grouped
+      p.control
+        input.input(type="text" placeholder="ID for second node" length=100)
+      p.control
+        a.button.is-primary Connect

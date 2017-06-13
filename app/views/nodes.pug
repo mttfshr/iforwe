@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  .container
+    h1.title #{title}
+    .section
+      h2.title Add a node
+        include addnode.pug
+    .section
+      h2.title Connect nodes
+        include connectnodes.pug
+    .section
+      h2.title Search and filter
+        include searchfilter.pug
+    .section
+      h2.title Show alll
+      if graphnodes
+        h3 Here are the current nodes and their properties
+        table.table.is-striped
+          tr#head
+            th Actions
+            th ID
+            th Name
+            th Labels
+            th Array
+          each graphnode in graphnodes
+            tr
+              td
+                a(href='/node/' + graphnode.id + '/edit').button.tag.is-primary Edit
+              td #{graphnode.id}
+              td #{graphnode.name}
+              td #{graphnode.labelsArr}
+              td #{JSON.stringify(graphnode)}
+      else
+        h2 Sorry no nodes for you

@@ -1,0 +1,23 @@
+block content
+    h2 Search and filter
+    form(action="/save", method="post")
+        //- each field, i in fields
+        //-     div.form-group.row
+        //-         label.col-xs-2.col-form-label #{field}:
+        //-         div.col-xs-10
+        //-             if (nodes.length > 0)
+        //-                 input.form-control(type='text', name=field + '_value', size=50, value=nodes[0][field])
+        //-             else
+        //-                 input.form-control(type="text", name=field + '_value', size=50, value="default value")
+        //- h3 Add Property:
+        //- div.form-group.row
+        //-     label.col-xs-2.col-form-label Property Name
+        //-     div.col-xs-10
+        //-         input.form-control(type="text", name="new_label")
+        //- div.form-group.row
+        //-     label.col-xs-2.col-form-labellabel Property Value
+        //-     div.col-xs-10
+        //-         input.form-control(type="text", name="new_value")
+        //- input.btn.btn-primary.pull-right(type="submit", value="Submit")
+        //- a.btn.btn-default(href='/' ) Cancel
+        //- br
