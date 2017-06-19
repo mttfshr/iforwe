@@ -1,31 +1,31 @@
 extends layout
 
 block content
-    h2 #{title}
-    h3 #{nodes[0]}
-    //- h3 #{node.length}
-    if (nodes.length > 0)
-        h3 Node - #{nodes[0].name}
-    else
-        h3 Add New Node
-    form(action="/save", method="post")
-        each field, i in fields
-            div.form-group.row
-                label.col-xs-2.col-form-label #{field}:
-                div.col-xs-10
-                    if (nodes.length > 0)
-                        input.form-control(type='text', name=field + '_value', size=50, value=nodes[0][field])
-                    else
-                        input.form-control(type="text", name=field + '_value', size=50, value="default value")
-        h3 Add Property:
-        div.form-group.row
-            label.col-xs-2.col-form-label Property Name
-            div.col-xs-10
-                input.form-control(type="text", name="new_label")
-        div.form-group.row
-            label.col-xs-2.col-form-labellabel Property Value
-            div.col-xs-10
-                input.form-control(type="text", name="new_value")
+  - var fields = {Artist: ['id', 'name', 'email', 'location', 'age', 'gender', 'description', 'verified'], Group: ['id', 'name', 'type', 'raison', 'description', 'verified'],  Project: ['id', 'name', 'type', 'genre', 'description', 'verified'], Venue: ['id', 'name', 'type', 'address', 'description', 'verified']}
+  
+  .container
+    h1.title #{title} #{fieldList}
+    .section
+      h3.title.is-3 Node - #{nodes[0].name} 
+      h4.title.is-4 Labels - (add icons) #{labels}
+    .section
+      h4.title.is-4 Current connections
+      .content
+        include shownoderels.pug
+        .notification.is-warning
+          p This won't work as planned b/c shownoderels is just a template not a component. fix context for call to router -- Look into vue components
+    .section
+      h4.title.is-4 Edit properties
+      form(action="/save", method="post")
+        if fields
+          each i in fields[labels]
+              div.form-group.row
+                  label.col-xs-2.col-form-label #{i}:
+                  div.col-xs-10
+                      if (nodes.length > 0)
+                          input.form-control(type='text', name=i + '_value', size=50, value=nodes[0])
+                      else
+                          input.form-control(type="text", name=field + '_value', size=50, value="default value")
         input.btn.btn-primary.pull-right(type="submit", value="Submit")
         a.btn.btn-default(href='/' ) Cancel
         br

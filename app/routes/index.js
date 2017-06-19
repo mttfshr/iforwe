@@ -15,7 +15,7 @@ var env = {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express', env: env })
+  res.render('index', { title: 'I For We', env: env })
 })
 
 router.get('/help', function (req, res, next) {
@@ -68,17 +68,17 @@ router.get('/nodes', function (req, res, next) {
   session
     .run('MATCH (n) RETURN n, labels(n) as labelsArr')
     .then(function (result) {
-      var nodeArr = []
+      var nodesArr = []
 
       result.records.forEach(function (record) {
-        nodeArr.push({
+        nodesArr.push({
           id: record._fields[0].identity.low,
           name: record._fields[0].properties.name,
           labelsArr: record._fields[0].labels
         })
       })
       res.render('nodes', {
-        graphnodes: nodeArr,
+        graphnodes: nodesArr,
         title: 'Nodes',
         env: env
       })
@@ -90,11 +90,12 @@ router.get('/nodes', function (req, res, next) {
 
 router.get('/node/:id/edit', function (req, res, next) {
   var nodesArr = []
+  var labelsArr = []
   var fields = []
   var id = req.params.id
 
   session
-    .run('MATCH (a)  Return keys(a), a')
+    .run('MATCH (a) RETURN keys(a), a')
     .subscribe({
       onNext: function (record) {
         if (fields.length <= record._fields[0].length) {
@@ -113,16 +114,45 @@ router.get('/node/:id/edit', function (req, res, next) {
     .run('OPTIONAL MATCH (a) WHERE ID(a) = toInt({idParam}) RETURN keys(a), a', {idParam: id})
     .subscribe({
       onNext: function (record) {
-        nodesArr.push(record._fields[1].properties)
+        nodesArr.push(record._fields[1].properties),
+        labels = record._fields[1].labels
       },
       onCompleted: function () {
-              // Completed!
         session.close()
-        res.render('editnode', { title: 'Edit Node', nodes: nodesArr, fields: fields })
+        res.render('editnode', {
+          title: 'Edit Node',
+          nodes: nodesArr,
+          fields: fields,
+          labels: labels})
       },
       onError: function (error) {
         console.log(error)
       }
+    })
+})
+
+router.get('/node/:id/showrels', function (req, res, next) {
+  var id = req.params.id
+
+  session
+    .run('OPTIONAL MATCH (a)-[r]-(b) WHERE ID(a) = toInt({idParam}) RETURN a, r, b', {idParam: id})
+    .then(function (result) {
+      var relsArr = []
+      result.records.forEach(function (record) {
+        relsArr.push({
+          from: record.get(0).properties.name,
+          rel: record.get(1).type,
+          to: record.get(2).properties.name
+        })
+      })
+      res.render('shownoderels', {
+        title: 'Show Connections',
+        relsArr: relsArr,
+        env: env
+      })
+    .catch(function (error) {
+      console.log(error)
+    })
     })
 })
 

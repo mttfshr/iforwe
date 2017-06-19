@@ -1,4 +1,19 @@
 block content
+  
+form.level(action="/node/add", method="post")
+  label.label.is-large.level-item.has-text-centered Add a  
+  .field.level-item.has-text-centered
+    p.control
+      span.select.is-large
+        select(type="select", name="label")
+          option Person
+          option Group
+          option Project
+          option Venue
+          option City
+          option Year
+  input.button.is-primary.level-item.is-large.has-text-centered(type="submit", value="Next")
+    
 form.level(action="/artist/add", method="post")
     .field.is-horizontal
       .field-label.is-medium
